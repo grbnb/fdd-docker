@@ -19,6 +19,10 @@ else
 
   mysql_install_db --user=root > /dev/null
 
+  if [ -d /etc/my.cnf.d ]; then
+    sed -i "s|.*skip-networking.*|#skip-networking|g" /etc/my.cnf.d/mariadb-server.cnf
+  fi
+
   if [ "$MYSQL_ROOT_PASSWORD" = "" ]; then
     MYSQL_ROOT_PASSWORD=123456
   fi
@@ -65,6 +69,7 @@ SET FOREIGN_KEY_CHECKS = 1;" >> $tfile
   fi
 
   /usr/bin/mysqld --user=root --bootstrap --verbose=0 < $tfile > /dev/null 2>&1
+  sleep 3s
   rm -f $tfile
 fi
 
