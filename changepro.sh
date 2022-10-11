@@ -59,10 +59,9 @@ fi
 #启动程序
 pm2 start ${FDD_DIR}/changePro/ecosystem.config.js
 #pm2 start ${FDD_DIR}/changePro/app.js -n fdd -i max --time --max-memory-restart 300M
-sleep 3s
+sleep 5s
 if [ "$(netstat -tunlp | grep 3100)" ]; then
    echo "资产查询功能启动成功！默认端口号：3100"
 else
-   echo "未检测到3100端口，资产查询功能启动出错！请尝试重启容器！"
-   rm -rf ${FDD_DIR}/changePro/node_modules
+   echo "未检测到3100端口，资产查询功能启动出错！请尝试重启容器或手动启动changepro.sh文件！"
 fi
